@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libros</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+         <div class="container-fluid overflow-hidden">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div>
+                        <h3>Los libros más destacados del momento</h3>
+                    </div>
+
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <h4>{{libroActual.titulo}}</h4>
+                                <br>
+                                <fieldset>{{libroActual.descripcion}}</fieldset>
+                                <br>
+                                <img src="{{libroActual.imagen}}">
+                                <p>Stock actual: {{libroActual.stock}}</p>
+                            </div>
+                        </div>
+                        <button (click)="anterior()" class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button (click)="siguiente()" class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-dark" (click)="agregarLibro()">Agregar Libro</button>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+</body>
+
+</html>

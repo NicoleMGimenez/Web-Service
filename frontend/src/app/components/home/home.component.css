@@ -1,0 +1,16 @@
+h1{
+    color: white;
+    font-size: 70px;
+    font-family:'Gill Sans', 'Gill Sans MT';
+    text-align: center;
+    background-color: rgb(8, 83, 105);
+}
+
+body{
+    background-color: rgb(69, 156, 182);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+*{box-sizing:border-box;}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transacciones</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid overflow-hidden">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-10">
+                    <div>
+                        <h3>Historico de transacciones registradas</h3>
+                    </div>
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>Cantidad a Convertir</th>
+                                <th>Moneda Origen</th>
+                                <th>Tasa Conversion</th>
+                                <th>Moneda Destino</th>
+                                <th>Cantidad Convertida</th>
+                                <th>Email Cliente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let trans of transacciones">
+                                <td>{{trans.cantidadOrigen | currency}}</td>
+                                <td>{{trans.monedaOrigen}}</td>
+                                <td>{{trans.tasaConversion | currency}}</td>
+                                <td>{{trans.monedaDestino}}</td>
+                                <td>{{trans.cantidadDestino | currency}}</td>
+                                <td>{{trans.emailCliente}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2">
+                    <form action="" method="POST" #filtrarForm="ngForm">
+                            <label for="origen" class="form-label">Moneda origen</label>
+                            <select [(ngModel)]="origen" name="origen" id="origen" class="form-select">
+                                <option *ngFor="let divisa of divisas" [value]="divisa">{{divisa}}</option>
+                            </select>
+                        
+                            <label for="destino" class="form-label">Moneda destino</label>
+                            <select [(ngModel)]="destino" name="destino" id="destino" class="form-select">
+                                <option *ngFor="let divisa of divisas" [value]="divisa">{{divisa}}</option>
+                            </select>
+                        <button type="button" class="btn btn-outline-dark" (click)="filtrar()" [disabled]="!origen.length || !destino.length">Filtrar</button>
+                    </form>
+                    <br>
+                    <button type="button" class="btn btn-outline-dark" (click)="mostrarTodo()">Mostrar todas</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasaje</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid overflow-hidden">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div>
+                        <h3>Compra de Pasaje</h3>
+                    </div>
+                    <form action="" method="POST" #pasajeForm="ngForm">
+                        <div class="mb-3" *ngIf="accion=='new'">
+                            <label for="fechaP">Fecha</label>
+                            <input type="date" class="form-control" id="fechaP" [(ngModel)]="pasaje.fechaCompra"
+                                name="fechaP">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pasajero" class="form-label">Pasajero</label>
+                            <select [(ngModel)]="pasaje.pasajero" name="pasajero" class="form-select" id="pasajero" #pasajero="ngModel" required>
+                                <option *ngFor="let persona of personas" [ngValue]="persona">
+                                    {{persona.apellido | titlecase}}, {{persona.nombre | titlecase}} -
+                                    {{persona.nro_documento}}</option>
+                            </select>
+                            <div *ngIf="pasajero.invalid && (pasajero.dirty || pasajero.touched)" class="alert alert-danger">
+                                <div *ngIf="pasajero.errors?.['required']">
+                                    Seleccione un pasajero
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cateogira" class="form-label">Categoria</label>
+                            <select class="form-select" name="categoria" id="categoria"
+                                [(ngModel)]="pasaje.categoriaPasajero" #categoria="ngModel" required>
+                                <option value="m">Menor</option>
+                                <option value="a">Adulto</option>
+                                <option value="j">Jubilado</option>
+                            </select>
+                            
+                            <div *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)" class="alert alert-danger">
+                                <div *ngIf="categoria.errors?.['required']">
+                                    Seleccione la categoría.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input class="form-control" type="number" name="precio" id="precio"
+                                [(ngModel)]="pasaje.precioPasaje" #precio="ngModel" required min="100">
+
+                            <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+                                <div *ngIf="precio.errors?.['required']">
+                                    Ingrese el precio del pasaje.
+                                </div>
+                                <div *ngIf="precio.errors?.['min']">
+                                    El precio debe ser mayor o igual a 100.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button *ngIf="accion=='new'" (click)="guardarPasaje()" type="button"
+                                class="btn btn-warning" [disabled]="pasajeForm.form.invalid" >REGISTRAR</button>
+                            <button *ngIf="accion=='update'" (click)="actualizarPasaje()" type="button"
+                                class="btn btn-warning">ACTUALIZAR
+                                REGISTRO</button>
+                        </div>
+
+                    </form>
+                    <br>
+
+                    <button *ngIf="accion=='update'" (click)="volver()" type="button"
+                                class="btn btn-warning">Volver</button>
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+
+</html>

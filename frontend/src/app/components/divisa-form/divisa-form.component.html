@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divisa</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid overflow-hidden">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div>
+                        <h3>Conversor de divisas</h3>
+                    </div>
+                    <form action="" method="POST" #divisaForm="ngForm">
+                        <div class="mb-3">
+                            <label for="cantidadOrigen" class="form-label">Cantidad: </label>
+                            <input [(ngModel)]="transaccion.cantidadOrigen" type="number" class="form-control"
+                                name="cantidadOrigen" id="cantidadOrigen" min="1" required #cantOrigen="ngModel">
+
+                            <div *ngIf="cantOrigen.invalid && (cantOrigen.dirty || cantOrigen.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="cantOrigen.errors?.['required']">
+                                    Ingrese la cantidad a convertir.
+                                </div>
+                                <div *ngIf="cantOrigen.errors?.['min']">
+                                    Cantidad ingresada debe ser mayor o igual a 1.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="monedaOrigen" class="form-label">De: </label>
+                            <select [(ngModel)]="transaccion.monedaOrigen" class="form-select" name="monedaOrigen"
+                                id="monedaOrigen" required #monedaOrigen="ngModel">
+                                <option [value]="divisa" *ngFor="let divisa of divisas">{{divisa}}</option>
+                            </select>
+
+                            <div *ngIf="monedaOrigen.invalid && (monedaOrigen.dirty || monedaOrigen.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="monedaOrigen.errors?.['required']">
+                                    Debe colocar una moneda de origen.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tasaConversion" class="form-label">Tasa de Conversion: </label>
+                            <input type="number" class="form-control" name="tasaConversion" id="tasaConversion" min="1"
+                                [(ngModel)]="transaccion.tasaConversion" required #tasa="ngModel">
+
+                            <div *ngIf="tasa.invalid && (tasa.dirty || tasa.touched)" class="alert alert-danger">
+                                <div *ngIf="tasa.errors?.['required']">
+                                    Tasa de conversion es requerida.
+                                </div>
+                                <div *ngIf="tasa.errors?.['min']">
+                                    Cantidad ingresada debe ser mayor o igual a 1.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="monedaDestino" class="form-label">A</label>
+                            <select [(ngModel)]="transaccion.monedaDestino" name="monedaDestino" class="form-select"
+                                id="monedaDestino" required #monedaDestino="ngModel">
+                                <option [value]="divisa" *ngFor="let divisa of divisas">{{divisa}}</option>
+                            </select>
+
+                            <div *ngIf="monedaDestino.invalid && (monedaDestino.dirty || monedaDestino.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="monedaDestino.errors?.['required']">
+                                    Debe colocar una moneda de destino.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="emailCliente" class="form-label">Email</label>
+                            <input type="email" name="emailCliente" id="emailCliente" class="form-control"
+                                [(ngModel)]="transaccion.emailCliente" required #email="ngModel">
+
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                                <div *ngIf="email.errors?.['required']">
+                                    Email es requerido.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group ">
+                            <span class="input-group-text d-none d-sm-flex">Valor</span>
+                            <label class="form-control">{{resultado}}</label>
+                        </div>
+
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-warning" [disabled]="divisaForm.form.invalid"
+                                (click)="convertir()">Convertir</button>
+                        </div>
+                    </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasajes</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid overflow-hidden">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-10">
+                    <div>
+                        <h3>Historico de pasajes registradas</h3>
+                    </div>
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th>Precio Pasaje</th>
+                                <th>Categoria Pasajero</th>
+                                <th>Fecha Compra</th>
+                                <th>Pasajero</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pasaje of pasajes">
+                                <td>{{pasaje.precioPasaje | currency}}</td>
+                                <td>{{pasaje.categoriaPasajero}}</td>
+                                <td>{{pasaje.fechaCompra}}</td>
+                                <td>
+                                    <p>DNI: {{pasaje.pasajero.nro_documento}}</p>
+                                    <p>Nombre: {{pasaje.pasajero.nombre}}</p>
+                                    <p>Apellido: {{pasaje.pasajero.apellido}}</p>
+                                    <p>Email: {{pasaje.pasajero.email}}</p>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary"
+                                        (click)="borrarPasajero(pasaje)">Borrar</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        (click)="elegirPasajero(pasaje)">Seleccionar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2">
+                    <form>
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <select class="form-select" name="categoria" id="categoria" [(ngModel)]="filtro">
+                            <option value="m">Menor</option>
+                            <option value="a">Adulto</option>
+                            <option value="j">Jubilado</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-dark" (click)="filtrar()">Filtrar</button>
+                    </form>
+                    <br>
+                    <button type="button" class="btn btn-outline-dark" (click)="mostrarTodo()">Mostrar todos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

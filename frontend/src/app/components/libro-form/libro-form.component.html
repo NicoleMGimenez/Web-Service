@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Libro</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container-fluid overflow-hidden">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div>
+                        <h3>Formulario para ingresar un libro</h3>
+                    </div>
+                    <br>
+                    <form action="" method="POST" #libroForm="ngForm">
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Titulo</label>
+                            <input type="text" class="form-control" name="titulo" id="titulo"
+                                [(ngModel)]="libroGuardado.titulo" #titulo="ngModel" required>
+
+                            <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="alert alert-danger">
+                                <div *ngIf="titulo.errors?.['required']">
+                                    El libro debe tener un titulo.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripcion</label>
+                            <textarea class="form-control" name="descripcion" minlength="10" id="descripcion"
+                                [(ngModel)]="libroGuardado.descripcion" #descripcion="ngModel" required></textarea>
+
+                            <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="descripcion.errors?.['required']">
+                                    El libro debe tener una descripcion.
+                                </div>
+                                <div *ngIf="descripcion.errors?.['minlength']">
+                                    La descripcion debe tener más de 10 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Portada</label>
+                            <input type="file" alife-file-to-base64 multiple (onFileChanged)="onFileChanges($event)"
+                                accept="image/x-png,image/gif,image/jpeg" [(fileModel)]="libroGuardado.imagen" name="imagen"
+                                required/>
+                            <img [src]="stringimage">
+                            <!-- <input type="url" class="form-control" name="imagen" id="imagen"
+                                [(ngModel)]="libroGuardado.imagen" #imagen="ngModel" required> 
+                            <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="alert alert-danger">
+                                <div *ngIf="imagen.errors?.['required']">
+                                    La portada es requerida.
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" class="form-control" min="1" name="stock" id="stock"
+                                [(ngModel)]="libroGuardado.stock" #stock="ngModel" required>
+                            <div *ngIf="stock.invalid && (stock.dirty || stock.touched)" class="alert alert-danger">
+                                <div *ngIf="stock.errors?.['required']">
+                                    El libro debe tener una cantidad en stock.
+                                </div>
+                                <div *ngIf="stock.errors?.['min']">
+                                    El stock debe ser mayor o igual a 1.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" [(ngModel)]="libroGuardado.destacado" type="checkbox"
+                                    id="destacado" name="destacado">
+                                <label class="form-check-label" for="destacado">
+                                    Destacado
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-warning" [disabled]="libroForm.form.invalid"
+                                (click)="guardarLibro()" (click)="resetearForm(libroForm)">Crear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</body>
+
+</html>
